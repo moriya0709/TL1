@@ -65,4 +65,4 @@ def unregister():
     for cls in classes:
         bpy.utils.unregister_class(cls)
     
-    print("レベルエディタが無効果されました。")
+    print("レベルエディタが無効化されました。")
