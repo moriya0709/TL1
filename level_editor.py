@@ -55,8 +55,15 @@ class MYADDON_OT_stretch_vertex(bpy.types.Operator):
 
     # メニューを実行したときに呼ばれるコールバック
     def execute(self,context):
-        bpy.data.objects["Cube"].data.vertices[0].co.x += 1.0
-        print("頂点を伸ばしました。")
+        
+        # 現在選択中のオブジェクト
+        obj = context.active_object
+        if obj and obj.type == 'MESH':
+            obj.data.vertices[0].co.x += 1.0
+            obj.data.update()
+            self.report({'INFO'}, "頂点を伸ばしました")
+        else:
+            self.report({'WARNING'}, "メッシュオブジェクトを選択してください")
 
         # オペレータの命令終了を通知
         return {'FINISHED'}
@@ -141,6 +148,6 @@ def unregister():
     
     # Blenderからクラスを削除
     for cls in classes:
-        bpy.utils.unregister_class()
+        bpy.utils.unregister_class(cls)
     
     print("レベルエディタが無効果されました。")
