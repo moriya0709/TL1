@@ -56,8 +56,14 @@ class MYADDON_OT_stretch_vertex(bpy.types.Operator):
 
     # メニューを実行したときに呼ばれるコールバック
     def execute(self,context):
-        bpy.data.objects["Cube"].data.vertices[0].co.x += 1.0
-        print("頂点を伸ばしました。")
+          # 現在選択中のオブジェクト
+        obj = context.active_object
+        if obj and obj.type == 'MESH':
+            obj.data.vertices[0].co.x += 1.0
+            obj.data.update()
+            self.report({'INFO'}, "頂点を伸ばしました")
+        else:
+            self.report({'WARNING'}, "メッシュオブジェクトを選択してください")
 
         # オペレータの命令終了を通知
         return {'FINISHED'}
@@ -83,6 +89,11 @@ class MYADDON_OT_export_scene(bpy.types.Operator,bpy_extras.io_utils.ExportHelpe
     bl_description = "シーン情報をExportします"
     # 出力するファイルの拡張子
     filename_ext = ".scene"
+
+    # ファイル選択ダイアログを表示するためのメソッド
+    def invoke(self, context, event):
+        context.window_manager.fileselect_add(self)
+        return {'RUNNING_MODAL'}
 
     # 改行
     def write_and_print(self,file,str):
@@ -225,4 +236,4 @@ def unregister():
     for cls in classes:
         bpy.utils.unregister_class(cls)
     
-    print("レベルエディタが無効果されました。")
+    print("レベルエディタが無効化されました。")
