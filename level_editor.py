@@ -95,10 +95,10 @@ def register():
 # Add-On無効時コールバック
 def unregister():
     # メニューから項目を削除
-    bpy.types.TOPBAR_MT_editer_menus.remove(TOPBAR_MT_my_menu.submenu)
+    bpy.types.TOPBAR_MT_editor_menus.remove(TOPBAR_MT_my_menu.submenu)
     
     # Blenderからクラスを削除
     for cls in classes:
-        bpy.utils.unregister_class()
+        bpy.utils.unregister_class(cls)
     
     print("レベルエディタが無効果されました。")
