@@ -59,7 +59,11 @@ def register():
 # Add-On無効時コールバック
 def unregister():
     # メニューから項目を削除
+<<<<<<< Updated upstream
     bpy.types.TOPBAR_MT_editer_menus.remove(TOPBAR_MT_my_menu.submenu)
+=======
+    bpy.types.TOPBAR_MT_editor_menus.remove(TOPBAR_MT_my_menu.submenu)
+>>>>>>> Stashed changes
     
     # Blenderからクラスを削除
     for cls in classes:
