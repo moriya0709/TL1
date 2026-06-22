@@ -19,7 +19,7 @@ bl_info = {
 # トップバーの拡張メニュー
 class TOPBAR_MT_my_menu(bpy.types.Menu):
     # Blenderがクラスを識別するための固有の文字列
-    bl_idname = "TOPBAR_MT_my_menu"
+    bl_idname = "myaddon.topbar_mt_my_menu"
     # メニューのラベルとして表示される文字列
     bl_label = "MyMenu"
     # 著者表示用の文字列
@@ -41,6 +41,7 @@ class TOPBAR_MT_my_menu(bpy.types.Menu):
             text=MYADDON_OT_export_scene.bl_label)
     
     # 既存のメニューにサブメニューを追加
+    @staticmethod
     def submenu(self, context):
 
         # ID指定でサブメニューを追加
@@ -56,7 +57,7 @@ class MYADDON_OT_stretch_vertex(bpy.types.Operator):
 
     # メニューを実行したときに呼ばれるコールバック
     def execute(self,context):
-          # 現在選択中のオブジェクト
+        # 現在選択中のオブジェクト
         obj = context.active_object
         if obj and obj.type == 'MESH':
             obj.data.vertices[0].co.x += 1.0
@@ -111,7 +112,7 @@ class MYADDON_OT_export_scene(bpy.types.Operator,bpy_extras.io_utils.ExportHelpe
             indent += "\t"
 
         # オブジェクト名書き込み
-        self.write_and_print(file,indent + object.type)
+        self.write_and_print(file,indent + object.type + " - " + object.name)
         trans,rot,scale = object.matrix_local.decompose()
         # 回転をQuternionからEuler（3軸での回転角）に変換
         rot = rot.to_euler()
@@ -211,11 +212,6 @@ classes = (
     MYADDON_OT_add_filename,
     OBJECT_PT_file_name,
 )
-
-# メニュー項目描画
-def draw_menu_manual(self, context):
-    # トップバーの「エディターメニュー」に項目（オペレータ）を追加
-    self.layout.operator("wm.url_open_preset", text="Manual", icon='HELP')
 
 # Add-On有効時コールバック
 def register():
