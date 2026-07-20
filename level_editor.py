@@ -134,7 +134,7 @@ class MYADDON_OT_export_scene(bpy.types.Operator,bpy_extras.io_utils.ExportHelpe
         if "collider" in object:
             self.write_and_print(file,indent + "C %s" % object["collider"])
             temp_str = indent + "CC %f %f %f"
-            temp_str %= (object["collider_center"][0],object["collider_center"][1],object["collider_ceneter"][2])
+            temp_str %= (object["collider_center"][0],object["collider_center"][1],object["collider_center"][2])
             self.write_and_print(file,temp_str)
             temp_str = indent + "CS %f %f %f"
             temp_str %= (object["collider_size"][0],object["collider_size"][1],object["collider_size"][2])
