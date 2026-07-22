@@ -170,7 +170,7 @@ class MYADDON_OT_export_scene(bpy.types.Operator,bpy_extras.io_utils.ExportHelpe
         transform["rotation"] = (rot.x,rot.y,rot.z)
         transform["scaling"] = (scale.x,scale.y,scale.z)
         # まとめて一個分のjsonオブジェクトに登録
-        json_object["transfe"] = transform
+        json_object["transform"] = transform
         # カスタムプロパティ'file_name'
         if "file_name" in object:
             json_object["file_name"] = object["file_name"]
@@ -250,7 +250,7 @@ class MYADDON_OT_export_scene(bpy.types.Operator,bpy_extras.io_utils.ExportHelpe
             file.write(json_text)
 
 
-    def execute(self,ontext):
+    def execute(self,context):
 
         print("シーン情報をExportします")
 
